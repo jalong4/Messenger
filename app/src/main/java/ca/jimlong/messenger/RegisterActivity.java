@@ -3,7 +3,6 @@ package ca.jimlong.messenger;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -12,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,7 +79,11 @@ public class RegisterActivity extends AppCompatActivity {
             createUser(email, password);
         });
 
-        mAlreadyHaveAccountTextView.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
+        mAlreadyHaveAccountTextView.setOnClickListener(v -> {
+            Intent intent = new Intent(this,  LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
     }
 
     public void onStart() {
@@ -173,6 +175,10 @@ public class RegisterActivity extends AppCompatActivity {
         ref.setValue(user)
                 .addOnSuccessListener(task -> {
                     Log.d(TAG, "User saved to database successfully");
+
+                    Intent intent = new Intent(this, MessagesActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 })
                 .addOnFailureListener(task -> {
                     Log.d(TAG, "Failed to save user to database");

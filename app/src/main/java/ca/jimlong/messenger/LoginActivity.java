@@ -1,7 +1,6 @@
 package ca.jimlong.messenger;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,9 +9,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -21,7 +17,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mEmail;
     private EditText mPassword;
     private Button mLoginButton;
-    private TextView mBackToRegistrationTextView;
+    private TextView mRegisterForAccountTextView;
     private FirebaseAuth mAuth;
 
     private static final String TAG = "LoginActivity";
@@ -34,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         mEmail = (EditText) findViewById(R.id.email_edittext);
         mPassword = (EditText) findViewById(R.id.password_edittext);
         mLoginButton = (Button) findViewById(R.id.login_button);
-        mBackToRegistrationTextView = (TextView) findViewById(R.id.back_to_registration_textview);
+        mRegisterForAccountTextView = (TextView) findViewById(R.id.registrater_for_account_textview);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -49,7 +45,11 @@ public class LoginActivity extends AppCompatActivity {
             login(email, password);
         });
 
-        mBackToRegistrationTextView.setOnClickListener(v -> finish());
+        mRegisterForAccountTextView.setOnClickListener(v -> {
+            Intent intent = new Intent(this,  RegisterActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
     }
 
     public void onStart() {
@@ -71,6 +71,9 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (!task.isSuccessful()) return;
                     AuthUtils.updateUI(mAuth.getCurrentUser(), "logged in");
+                    Intent intent = new Intent(this, MessagesActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 })
 
                 .addOnFailureListener(this, task -> {
