@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
 
-    <ImageView
-        android:id="@+id/profile_placeholder"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/username_edittext"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/profile_image_circleimageview"
         android:layout_width="150dp"
@@ -23,12 +13,11 @@
 
         android:background="@drawable/rounded_image_view"
         app:civ_border_width="4dp"
-        app:layout_constraintBottom_toBottomOf="@id/profile_placeholder"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@+id/username_edittext"
-        app:layout_constraintEnd_toEndOf="@id/profile_placeholder"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/profile_placeholder"
-        app:layout_constraintTop_toTopOf="@+id/profile_placeholder" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -62,7 +51,7 @@
         app:layout_constraintBottom_toTopOf="@+id/email_edittext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_placeholder" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_image_circleimageview" />
 
     <EditText
         android:id="@+id/email_edittext"
