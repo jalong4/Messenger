@@ -52,6 +52,10 @@ public class ChatLogActivity extends AppCompatActivity {
 
         mSendButton.setOnClickListener(v -> {
 
+            if (mMessage.getText().toString().trim().isEmpty()) {
+                return;
+            }
+
             String fromUid = Utils.myUid();
             String toUid = mToUser.getUid();
 

@@ -66,7 +66,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         viewHolder.mMessageTextView.setText(message.getText());
         viewHolder.mUsernameTextView.setText(message.getUsername());
         Picasso.get().load(message.getProfileImageUrl()).into(viewHolder.mProfileImage);
-//        viewHolder.mDateTextView.setText(message.getDate());
+        viewHolder.mDateTextView.setText(message.getDate());
 
         viewHolder.itemView.setOnClickListener(v -> onClick.onItemClick(position));
     }

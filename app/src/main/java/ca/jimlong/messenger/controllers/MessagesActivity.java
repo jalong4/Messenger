@@ -1,6 +1,8 @@
 package ca.jimlong.messenger.controllers;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +25,7 @@ import ca.jimlong.messenger.adapters.MessageAdapter;
 import ca.jimlong.messenger.models.ChatMessage;
 import ca.jimlong.messenger.models.Message;
 import ca.jimlong.messenger.models.User;
+import ca.jimlong.messenger.utils.MenuTintUtils;
 import ca.jimlong.messenger.utils.Utils;
 import ca.jimlong.messenger.R;
 
@@ -53,8 +56,10 @@ public class MessagesActivity extends AppCompatActivity implements MessageAdapte
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mFromUser = dataSnapshot.getValue(User.class);
-                getSupportActionBar().setTitle(mFromUser.getUsername());
-                loadMessages();
+                if (mFromUser != null && mFromUser.getUsername() != null) {
+                    getSupportActionBar().setTitle(mFromUser.getUsername());
+                    loadMessages();
+                }
             }
 
             @Override
@@ -205,6 +210,7 @@ public class MessagesActivity extends AppCompatActivity implements MessageAdapte
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.nav_menu, menu);
+        MenuTintUtils.tintAllIcons(menu, Color.WHITE);
         return super.onCreateOptionsMenu(menu);
     }
 }

@@ -5,12 +5,14 @@
     <item
         android:id="@+id/menu_new_message"
         android:title="New Message"
-        app:showAsAction="ifRoom"/>
+        android:icon="@drawable/new_message"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_log_off"
         android:title="Log Off"
-        app:showAsAction="ifRoom"/>
+        android:icon="@drawable/logout"
+        app:showAsAction="ifRoom" />
 
 
 </menu>

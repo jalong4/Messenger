@@ -127,7 +127,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
-                    if (!task.isSuccessful()) return;
+                    if (!task.isSuccessful()) {
+                        return;
+                    }
 
                     uploadImage();
                     Utils.updateUI(mAuth.getCurrentUser(), "created");

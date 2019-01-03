@@ -3,6 +3,11 @@ package ca.jimlong.messenger.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 public class Message {
 
     public static final String KEY = "Message";
@@ -58,72 +63,73 @@ public class Message {
     }
 
     public String getDate() {
-        return timeAgoSinceDate();
+        return timeAgo(timestamp);
     }
 
 
-    private String timeAgoSinceDate() {
-        return "Just Now";
-//        let calendar = Calendar.current
-//        let now = currentDate
-//        let earliest = (now as NSDate).earlierDate(date)
-//        let latest = (earliest == now) ? date : now
-//        let components:DateComponents = (calendar as NSCalendar).components([NSCalendar.Unit.minute , NSCalendar.Unit.hour , NSCalendar.Unit.day , NSCalendar.Unit.weekOfYear , NSCalendar.Unit.month , NSCalendar.Unit.year , NSCalendar.Unit.second], from: earliest, to: latest, options: NSCalendar.Options())
-//
-//        if (components.year! >= 2) {
-//            return "\(components.year!) years ago"
-//        } else if (components.year! >= 1){
-//            if (numericDates){
-//                return "1 year ago"
-//            } else {
-//                return "Last year"
-//            }
-//        } else if (components.month! >= 2) {
-//            return "\(components.month!) months ago"
-//        } else if (components.month! >= 1){
-//            if (numericDates){
-//                return "1 month ago"
-//            } else {
-//                return "Last month"
-//            }
-//        } else if (components.weekOfYear! >= 2) {
-//            return "\(components.weekOfYear!) weeks ago"
-//        } else if (components.weekOfYear! >= 1){
-//            if (numericDates){
-//                return "1 week ago"
-//            } else {
-//                return "Last week"
-//            }
-//        } else if (components.day! >= 2) {
-//            return "\(components.day!) days ago"
-//        } else if (components.day! >= 1){
-//            if (numericDates){
-//                return "1 day ago"
-//            } else {
-//                return "Yesterday"
-//            }
-//        } else if (components.hour! >= 2) {
-//            return "\(components.hour!) hours ago"
-//        } else if (components.hour! >= 1){
-//            if (numericDates){
-//                return "1 hour ago"
-//            } else {
-//                return "An hour ago"
-//            }
-//        } else if (components.minute! >= 2) {
-//            return "\(components.minute!) minutes ago"
-//        } else if (components.minute! >= 1){
-//            if (numericDates){
-//                return "1 minute ago"
-//            } else {
-//                return "A minute ago"
-//            }
-//        } else if (components.second! >= 3) {
-//            return "\(components.second!) seconds ago"
-//        } else {
-//            return "Just now"
-//        }
+    private String timeAgo(long time_ago) {
+        long cur_time = (Calendar.getInstance().getTimeInMillis()) / 1000;
+        long time_elapsed = cur_time - time_ago;
+        long seconds = time_elapsed;
+        int minutes = Math.round(time_elapsed / 60);
+        int hours = Math.round(time_elapsed / 3600);
+        int days = Math.round(time_elapsed / 86400);
+        int weeks = Math.round(time_elapsed / 604800);
+        int months = Math.round(time_elapsed / 2600640);
+        int years = Math.round(time_elapsed / 31207680);
 
+        // Seconds
+        if (seconds <= 60) {
+            return "just now";
+        }
+        //Minutes
+        else if (minutes <= 60) {
+            if (minutes == 1) {
+                return "one minute ago";
+            } else {
+                return minutes + " minutes ago";
+            }
+        }
+        //Hours
+        else if (hours <= 24) {
+            if (hours == 1) {
+                return "an hour ago";
+            } else {
+                return hours + " hrs ago";
+            }
+        }
+        //Days
+        else if (days <= 7) {
+            if (days == 1) {
+                return "yesterday";
+            } else {
+                return days + " days ago";
+            }
+        }
+        //Weeks
+        else if (weeks <= 4.3) {
+            if (weeks == 1) {
+                return "a week ago";
+            } else {
+                return weeks + " weeks ago";
+            }
+        }
+        //Months
+        else if (months <= 12) {
+            if (months == 1) {
+                return "a month ago";
+            } else {
+                return months + " months ago";
+            }
+        }
+        //Years
+        else {
+            if (years == 1) {
+                return "one year ago";
+            } else {
+                return years + " years ago";
+            }
+        }
     }
 
 }
