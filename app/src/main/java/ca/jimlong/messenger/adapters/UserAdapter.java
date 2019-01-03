@@ -1,6 +1,8 @@
-package ca.jimlong.messenger;
+package ca.jimlong.messenger.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +11,21 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
+
+import ca.jimlong.messenger.R;
+import ca.jimlong.messenger.controllers.ChatLogActivity;
+import ca.jimlong.messenger.models.User;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
-    // Store a member variable for the contacts
     private List<User> mUsers;
+
+    private OnItemClicked onClick;
+
+    public interface OnItemClicked {
+        void onItemClick(int position);
+    }
 
     public UserAdapter() {
         mUsers = new ArrayList<User>();
@@ -28,7 +39,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             super(itemView);
             mProfileImage = (CircleImageView) itemView.findViewById(R.id.profileImage_imageview);
             mUsernameTextView = (TextView) itemView.findViewById(R.id.username_textview);
-
         }
     }
 
@@ -46,6 +56,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         User user = mUsers.get(position);
         Picasso.get().load(user.getProfileImageUrl()).into(viewHolder.mProfileImage);
         viewHolder.mUsernameTextView.setText(user.getUsername());
+
+        viewHolder.itemView.setOnClickListener(v -> onClick.onItemClick(position));
     }
 
 
@@ -57,5 +69,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public int getItemCount() {
         return mUsers.size();
     }
+
+    public void setOnClick(OnItemClicked onClick) { this.onClick = onClick; }
 
 }

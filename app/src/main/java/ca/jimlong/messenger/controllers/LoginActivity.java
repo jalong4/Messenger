@@ -1,4 +1,4 @@
-package ca.jimlong.messenger;
+package ca.jimlong.messenger.controllers;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import ca.jimlong.messenger.utils.Utils;
+import ca.jimlong.messenger.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -56,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        AuthUtils.updateUI(currentUser, "logged in");
+        Utils.updateUI(currentUser, "logged in");
     }
 
     private void login(String email, String password) {
@@ -70,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (!task.isSuccessful()) return;
-                    AuthUtils.updateUI(mAuth.getCurrentUser(), "logged in");
+                    Utils.updateUI(mAuth.getCurrentUser(), "logged in");
                     Intent intent = new Intent(this, MessagesActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
@@ -78,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 .addOnFailureListener(this, task -> {
                     Toast.makeText(this, "Failed to Login", Toast.LENGTH_LONG).show();
-                    AuthUtils.updateUI(null, "logged in: " + task.getMessage());
+                    Utils.updateUI(null, "logged in: " + task.getMessage());
                 });
     }
 }

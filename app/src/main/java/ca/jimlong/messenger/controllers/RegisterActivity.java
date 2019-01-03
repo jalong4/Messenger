@@ -1,4 +1,4 @@
-package ca.jimlong.messenger;
+package ca.jimlong.messenger.controllers;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,6 +23,9 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.UUID;
 
+import ca.jimlong.messenger.utils.Utils;
+import ca.jimlong.messenger.R;
+import ca.jimlong.messenger.models.User;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -90,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        AuthUtils.updateUI(currentUser, "logged in");
+        Utils.updateUI(currentUser, "logged in");
     }
 
     @Override
@@ -127,12 +130,12 @@ public class RegisterActivity extends AppCompatActivity {
                     if (!task.isSuccessful()) return;
 
                     uploadImage();
-                    AuthUtils.updateUI(mAuth.getCurrentUser(), "created");
+                    Utils.updateUI(mAuth.getCurrentUser(), "created");
                 })
 
                 .addOnFailureListener(this, task -> {
                     Toast.makeText(this, "Failed to Create User", Toast.LENGTH_LONG).show();
-                    AuthUtils.updateUI(null, "created: " + task.getMessage());
+                    Utils.updateUI(null, "created: " + task.getMessage());
                 });
 
 

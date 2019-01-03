@@ -1,4 +1,4 @@
-package ca.jimlong.messenger;
+package ca.jimlong.messenger.utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,9 +7,11 @@ import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class AuthUtils {
+import ca.jimlong.messenger.controllers.LoginActivity;
 
-    private static final String TAG = "AuthUtils";
+public class Utils {
+
+    private static final String TAG = "Utils";
 
     public static void updateUI(FirebaseUser user, String action) {
 
@@ -20,6 +22,9 @@ public class AuthUtils {
         }
     }
 
+    public static String myUid() {
+        return FirebaseAuth.getInstance().getUid();
+    }
 
     public static void verifyUserIsLoggedIn(Context context) {
         String uid = FirebaseAuth.getInstance().getUid();
@@ -30,4 +35,5 @@ public class AuthUtils {
             context.startActivity(intent);
         }
     }
+
 }
