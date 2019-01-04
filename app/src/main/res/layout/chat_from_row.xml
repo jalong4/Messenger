@@ -31,7 +31,7 @@
         android:minHeight="50dp"
         android:maxWidth="240dp"
         android:padding="16dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         app:layout_constraintStart_toEndOf="@+id/profileImage_chat_from"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
